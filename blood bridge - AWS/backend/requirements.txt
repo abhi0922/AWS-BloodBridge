@@ -1,6 +1,6 @@
 Flask==3.0.0
 Werkzeug==3.0.0
 
-# AWS SDK & logging
+# AWS SDK
 boto3
-watchtower
+# CloudWatch logging removed: watchtower was here
