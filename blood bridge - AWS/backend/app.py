@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 
 import boto3
-import watchtower
+# CloudWatch removed: watchtower import was here
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -43,11 +43,7 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "blood_bridge_secret_key")
 #    - sns:Publish
 #    Resource: <SNS_TOPIC_ARN> (configured via BLOOD_REQUEST_SNS_TOPIC_ARN env var)
 #
-# 3. CloudWatch Logs (Application logging):
-#    - logs:CreateLogGroup
-#    - logs:CreateLogStream
-#    - logs:PutLogEvents
-#    Resource: arn:aws:logs:<region>:<account>:log-group:/bloodbridge/*
+# CloudWatch Logs permissions removed - no longer using CloudWatch logging
 #
 # SETUP INSTRUCTIONS:
 # 1. Create an IAM role with the above permissions
@@ -62,8 +58,7 @@ app.secret_key = os.environ.get("FLASK_SECRET_KEY", "blood_bridge_secret_key")
 # - REQUESTS_TABLE: DynamoDB table name for requests (default: BloodBridgeRequests)
 # - MESSAGES_TABLE: DynamoDB table name for messages (default: BloodBridgeMessages)
 # - BLOOD_REQUEST_SNS_TOPIC_ARN: SNS topic ARN for blood request notifications
-# - CLOUDWATCH_LOG_GROUP: CloudWatch log group name (default: /bloodbridge/app)
-# - CLOUDWATCH_LOG_STREAM: CloudWatch log stream name (default: flask-app)
+# CloudWatch environment variables removed: CLOUDWATCH_LOG_GROUP, CLOUDWATCH_LOG_STREAM
 
 AWS_REGION = os.environ.get("AWS_REGION", "us-east-1")
 
@@ -86,32 +81,18 @@ messages_table = dynamodb.Table(
 sns_client = boto3.client("sns", region_name=AWS_REGION)
 SNS_TOPIC_ARN = os.environ.get("BLOOD_REQUEST_SNS_TOPIC_ARN")
 
-# -------------------- LOGGING TO CLOUDWATCH --------------------
-# AWS PERMISSION REQUIRED: CloudWatch Logs access (CreateLogGroup, CreateLogStream, PutLogEvents)
-# watchtower will automatically use EC2 IAM role credentials (no explicit credentials passed)
+# -------------------- LOGGING CONFIGURATION --------------------
+# CloudWatch logging removed - now using standard Python logging to stdout/stderr
+# Logs can be captured by EC2 CloudWatch agent or container logging if needed
 logger = logging.getLogger("bloodbridge")
 logger.setLevel(logging.INFO)
 
 if not logger.handlers:
-    # Stream to stdout (useful for local/dev and when EC2 CW agent is used)
+    # Stream to stdout (useful for local/dev and when EC2 logging agent is used)
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.INFO)
     logger.addHandler(console_handler)
-
-    # Direct CloudWatch Logs handler using watchtower
-    # Uses EC2 IAM role credentials automatically via boto3 default credential chain
-    log_group = os.environ.get("CLOUDWATCH_LOG_GROUP", "/bloodbridge/app")
-    try:
-        cw_handler = watchtower.CloudWatchLogHandler(
-            log_group=log_group,
-            stream_name=os.environ.get("CLOUDWATCH_LOG_STREAM", "flask-app"),
-            create_log_group=True,
-        )
-        cw_handler.setLevel(logging.INFO)
-        logger.addHandler(cw_handler)
-    except Exception as e:
-        # Fallback: do not crash the app if CW Logs handler cannot be created
-        logger.warning(f"Failed to attach CloudWatchLogHandler: {e}")
+    # CloudWatch direct logging removed - watchtower handler was here
 
 
 # -------------------- DynamoDB HELPERS --------------------
@@ -711,7 +692,7 @@ def submit_donation_slot():
 
     # AWS PERMISSION REQUIRED: dynamodb:PutItem on donations table
     donations_table.put_item(Item=donation_data)
-    # AWS PERMISSION REQUIRED: CloudWatch Logs PutLogEvents (via logger)
+    # CloudWatch logging removed - using standard logger
     logger.info(
         "Donation slot scheduled",
         extra={"donation_id": donation_id, "donor_id": session['user_id'], "blood_group": blood_group},
@@ -749,7 +730,7 @@ def contact():
 
         # AWS PERMISSION REQUIRED: dynamodb:PutItem on messages table
         messages_table.put_item(Item=contact_data)
-        # AWS PERMISSION REQUIRED: CloudWatch Logs PutLogEvents (via logger)
+        # CloudWatch logging removed - using standard logger
         logger.info("Contact message stored", extra={"message_id": message_id, "email": contact_data.get("email")})
         flash("Thank you! Your message has been sent successfully.")
         return redirect(url_for('contact'))
@@ -767,4 +748,3 @@ if __name__ == '__main__':
     # Bind to 0.0.0.0 so the app is reachable on EC2.
     # In production, disable debug and run behind a WSGI server like gunicorn.
     app.run(host='0.0.0.0', port=int(os.environ.get("PORT", 5000)), debug=bool(os.environ.get("FLASK_DEBUG", False)), use_reloader=False)
-
