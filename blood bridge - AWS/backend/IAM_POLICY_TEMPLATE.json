@@ -26,16 +26,6 @@
         "sns:Publish"
       ],
       "Resource": "arn:aws:sns:*:*:*"
-    },
-    {
-      "Sid": "CloudWatchLogsAccess",
-      "Effect": "Allow",
-      "Action": [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource": "arn:aws:logs:*:*:log-group:/bloodbridge/*"
     }
   ]
 }
