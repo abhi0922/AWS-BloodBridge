@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="form-card">
+        <h2>Select How You Want to Use BloodBridge</h2>
+        <p style="color:#555; font-size:0.95rem; margin-bottom:20px;">
+            Hi {{ session['name'] }}, choose one option for this session.
+        </p>
+
+        <form method="POST" action="{{ url_for('choose_role') }}">
+            <div class="input-group">
+                <button type="submit" name="role_choice" value="donor"
+                        class="btn btn-block"
+                        style="margin-bottom:10px;">
+                    Login as Donor
+                </button>
+            </div>
+            <div class="input-group">
+                <button type="submit" name="role_choice" value="recipient"
+                        class="btn btn-block secondary">
+                    Login as Recipient
+                </button>
+            </div>
+        </form>
+
+        <div class="form-footer">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

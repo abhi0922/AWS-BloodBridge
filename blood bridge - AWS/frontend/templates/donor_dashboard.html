@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="dashboard-container">
+    <h2>Welcome, {{ session['name'] }} (Donor)</h2>
+    <div class="stats-grid">
+      <div class="card">
+    <h3>My Donations</h3>
+    {% if donations %}
+        <table style="width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 0.9rem;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--primary); text-align: left; background: #f9f9f9;">
+                    <th style="padding: 12px;">Date</th>
+                    <th style="padding: 12px;">Location</th>
+                    <th style="padding: 12px;">Blood Group</th>
+                    <th style="padding: 12px;">Time Slot</th>
+                    <th style="padding: 12px;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for donation in donations %}
+                <tr style="border-bottom: 1px solid #eee;">
+                    <td style="padding: 10px;">{{ donation.date }}</td>
+                    <td style="padding: 10px;">{{ donation.location }}</td>
+                    <td style="padding: 10px;"><strong style="color: var(--primary); font-size: 1.1em;">{{ donation.blood_group or 'N/A' }}</strong></td>
+                    <td style="padding: 10px;">{{ donation.time_slot or 'N/A' }}</td>
+                    <td style="padding: 10px;">
+                        {% if donation.status == 'Scheduled' %}
+                            <span style="color: #f39c12; font-weight: bold;">{{ donation.status }}</span>
+                        {% elif donation.status == 'Completed' %}
+                            <span style="color: green; font-weight: bold;">{{ donation.status }}</span>
+                        {% else %}
+                            <span style="color: #3498db; font-weight: bold;">{{ donation.status }}</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #666;">
+                        No donations scheduled yet. Ready to save a life?
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>You haven't made any donations yet. Ready to save a life?</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('schedule_donation') }}" class="btn">Schedule Donation</a>
+</div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="contact-container">
+    <div class="contact-info">
+        <h1>Get in Touch</h1>
+        <p>Have questions about donation eligibility or need help with your account? Our team is here to help 24/7.</p>
+        
+        <div class="info-item">
+            <strong>📍 Address:</strong>
+            <p>123 Life Lane, Health City, ST 56789</p>
+        </div>
+        <div class="info-item">
+            <strong>📞 Phone:</strong>
+            <p>+1 (555) 000-BLOOD</p>
+        </div>
+        <div class="info-item">
+            <strong>✉️ Email:</strong>
+            <p>support@bloodbridge.org</p>
+        </div>
+    </div>
+
+    <div class="form-card contact-form">
+        <h2>Send a Message</h2>
+        <form action="{{ url_for('contact') }}" method="POST">
+            <div class="input-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="input-group">
+                <input type="email" name="name" placeholder="Your Email" required>
+            </div>
+            <div class="input-group">
+                <select name="subject">
+                    <option value="General Inquiry">General Inquiry</option>
+                    <option value="Technical Support">Technical Support</option>
+                    <option value="Blood Bank Verification">Blood Bank Verification</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <textarea name="message" rows="5" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-block">Send Message</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

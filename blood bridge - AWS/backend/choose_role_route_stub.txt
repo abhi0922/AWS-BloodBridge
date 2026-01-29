@@ -1,0 +1,1 @@
+*** This is a stub marker file to remind that /choose_role route exists in app.py. No code here. ***

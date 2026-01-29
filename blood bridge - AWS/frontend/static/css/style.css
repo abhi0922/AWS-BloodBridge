@@ -1,0 +1,435 @@
+:root {
+    --primary: #e74c3c;
+    --dark: #2c3e50;
+    --light: #f4f7f6;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    background-color: var(--light);
+}
+
+nav {
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 5%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo { font-size: 1.5rem; font-weight: 600; color: var(--dark); }
+.logo span { color: var(--primary); }
+
+nav ul { list-style: none; display: flex; gap: 20px; }
+nav ul li a { text-decoration: none; color: var(--dark); font-weight: 400; }
+
+.container { width: 80%; margin: 2rem auto; min-height: 80vh; }
+
+.hero { text-align: center; padding: 4rem 0; }
+.btn { 
+    background: var(--primary); color: white; padding: 10px 25px; 
+    border-radius: 5px; text-decoration: none; display: inline-block;
+}
+
+/* Form Styling */
+.form-card {
+    background: white; padding: 2rem; border-radius: 10px;
+    max-width: 400px; margin: auto; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+input, select {
+    width: 100%; padding: 10px; margin: 10px 0;
+    border: 1px solid #ddd; border-radius: 5px;
+}
+
+.flash {
+    background: #d4edda; color: #155724; padding: 10px;
+    border-radius: 5px; margin-bottom: 20px; text-align: center;
+}
+.dashboard-container { padding: 20px; }
+.stats-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px; 
+    margin-top: 20px; 
+}
+.card { 
+    background: white; padding: 20px; 
+    border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
+}
+table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
+.secondary { background: #34495e; }
+/* Centering the form on the page */
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 50px;
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.form-header h2 {
+    color: var(--primary);
+    margin-bottom: 5px;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--dark);
+}
+
+.btn-block {
+    width: 100%;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-block:hover {
+    background: #c0392b;
+}
+
+.form-footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
+.admin-container {
+    padding: 30px;
+    background: #f6f8fb;
+}
+
+.admin-header { 
+    margin-bottom: 30px; 
+}
+
+.admin-header h1 {
+    margin: 0;
+    font-size: 28px;
+    color: var(--dark);
+}
+
+.admin-header p {
+    color: #666;
+    margin-top: 5px;
+}
+
+.stat-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.stat-card h3 { font-size: 2rem; color: var(--primary); margin: 0; }
+.stat-card.urgent h3 { color: #f39c12; }
+
+.admin-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.table-wrapper {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+.role-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.role-badge.donor { background: #e1f5fe; color: #0288d1; }
+.role-badge.recipient { background: #f3e5f5; color: #7b1fa2; }
+.role-badge.bloodbank { background: #fff3e0; color: #ef6c00; }
+.role-badge.admin { background: #ede7f6; color: #5e35b1; }
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-sm.delete { background: #ff5252; color: white; }
+.contact-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: start;
+    padding: 40px 0;
+}
+
+.contact-info h1 {
+    color: var(--primary);
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.info-item {
+    margin-top: 25px;
+}
+
+.info-item p {
+    color: #555;
+    margin-top: 5px;
+}
+
+.contact-form {
+    margin: 0; /* Override the auto margin from general form-card */
+    width: 100%;
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: inherit;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+/* Responsive adjustment for mobile */
+@media (max-width: 768px) {
+    .contact-container {
+        grid-template-columns: 1fr;
+    }
+}
+.dashboard-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.welcome-banner {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border-left: 5px solid var(--primary);
+}
+
+.portal-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.portal-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.action-list {
+    list-style: none;
+    padding: 0;
+}
+
+.action-list li {
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.action-list li a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s;
+}
+
+.action-list li a:hover {
+    color: var(--primary);
+}
+
+.status-active {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.btn-outline {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 8px 15px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.btn-outline:hover {
+    background: var(--primary);
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .portal-grid { grid-template-columns: 1fr; }
+}
+.bb-dashboard {
+    padding: 30px;
+    background: #f6f8fb;
+}
+
+.bb-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.bb-header h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.bb-date {
+    color: #666;
+}
+
+.bb-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.bb-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+    text-align: center;
+}
+
+.bb-card h3 {
+    font-size: 32px;
+    margin: 0;
+    color: #c62828;
+}
+
+.bb-card.urgent h3 {
+    color: #e53935;
+}
+
+.bb-section {
+    margin-bottom: 30px;
+}
+
+.bb-section h2 {
+    margin-bottom: 12px;
+}
+
+.inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 15px;
+}
+
+.inventory-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.inventory-card.low {
+    border: 2px solid #e53935;
+    background: #fff5f5;
+}
+
+.inventory-card h3 {
+    margin: 0;
+    color: #b71c1c;
+}
+
+.bb-tables {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+.table-wrapper {
+    background: #fff;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 14px;
+    text-align: left;
+}
+
+thead {
+    background: #c62828;
+    color: #fff;
+}
+
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+.status.pending { color: #f57c00; }
+.status.approved { color: #2e7d32; }
+.status.rejected { color: #c62828; }
+
+.blood-box {
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    border: 2px solid;
+}
+.blood-box.available {
+    background: #d4edda;
+    border-color: #28a745;
+    color: #28a745;
+}
+.blood-box.unavailable {
+    background: #f8d7da;
+    border-color: #dc3545;
+    color: #dc3545;
+}

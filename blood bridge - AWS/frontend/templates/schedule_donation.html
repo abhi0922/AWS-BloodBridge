@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2 style="color: var(--primary);">Schedule Your Donation</h2>
+            <p>Select a convenient date, blood group, and location to save a life.</p>
+        </div>
+        
+        <form action="{{ url_for('submit_donation_slot') }}" method="POST">
+            <div class="input-group">
+                <label>Select Date</label>
+                <input type="date" name="donation_date" required>
+            </div>
+
+            <div class="input-group">
+                <label>Blood Group</label>
+                <select name="blood_group" required>
+                    <option value="">--Select Blood Group--</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            
+            <div class="input-group">
+                <label>Choose Blood Bank / Center</label>
+                <select name="location" required>
+                    <option value="City Central Blood Bank">City Central Blood Bank</option>
+                    <option value="Red Cross Regional Center">Red Cross Regional Center</option>
+                    <option value="Hope Memorial Hospital">Hope Memorial Hospital</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>Preferred Time Slot</label>
+                <select name="time_slot">
+                    <option>Morning (09:00 AM - 12:00 PM)</option>
+                    <option>Afternoon (12:00 PM - 04:00 PM)</option>
+                    <option>Evening (04:00 PM - 07:00 PM)</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-block">Confirm Appointment</button>
+            <a href="{{ url_for('dashboard') }}" class="btn-outline btn-block" style="text-align: center; margin-top: 10px; text-decoration: none;">Back to Dashboard</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Urgent Blood Requests</h2>
+<div class="admin-table-section">
+    <table>
+        <tr>
+            <th>Hospital</th>
+            <th>Blood Group</th>
+            <th>Units Needed</th>
+            <th>Action</th>
+        </tr>
+        {% for req in requests %}
+        <tr>
+            <td>{{ req.hospital }}</td>
+            <td><strong>{{ req.blood_group }}</strong></td>
+            <td>{{ req.units }}</td>
+            <td><a href="#" class="btn-sm">I can donate</a></td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4">No urgent requests at the moment. Check back later!</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<br>
+<a href="{{ url_for('dashboard') }}" class="btn secondary">Back to Dashboard</a>
+{% endblock %}

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="bb-dashboard">
+
+    <header class="bb-header">
+        <div>
+            <h1>Blood Bank Dashboard</h1>
+            <p>Real-time operations & inventory overview</p>
+        </div>
+        <div class="bb-date">{{ today }}</div>
+    </header>
+
+    <!-- Top Stats -->
+    <div class="bb-stats">
+        <div class="bb-card">
+            <h3>{{ stats.total_units }}</h3>
+            <p>Total Units Available</p>
+        </div>
+        <div class="bb-card">
+            <h3>{{ stats.today_donations }}</h3>
+            <p>Today’s Donations</p>
+        </div>
+        <div class="bb-card urgent">
+            <h3>{{ stats.pending_requests }}</h3>
+            <p>Pending Requests</p>
+        </div>
+        <div class="bb-card">
+            <h3>{{ stats.total_donors }}</h3>
+            <p>Registered Donors</p>
+        </div>
+    </div>
+
+    <!-- Inventory -->
+    <section class="bb-section">
+        <h2>Blood Inventory</h2>
+        <div class="inventory-grid">
+            {% for item in inventory %}
+            <div class="inventory-card {% if item.units < 5 %}low{% endif %}">
+                <h3>{{ item.group }}</h3>
+                <p>{{ item.units }} Units</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <div class="bb-tables">
+
+        <!-- Requests -->
+        <section class="bb-section">
+            <h2>Recent Requests</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hospital</th>
+                            <th>Group</th>
+                            <th>Units</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if requests %}
+                            {% for r in requests %}
+                            <tr>
+                                <td>{{ r.hospital }}</td>
+                                <td><strong style="color: var(--primary);">{{ r.blood_group }}</strong></td>
+                                <td>{{ r.units }}</td>
+                                <td class="status {{ r.status }}">{{ r.status }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="4" style="text-align:center;">No pending requests.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Donors -->
+        <section class="bb-section">
+            <h2>Recent Donors</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Group</th>
+                            <th>Last Donation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if donors %}
+                            {% for d in donors %}
+                            <tr>
+                                <td>{{ d.name }}</td>
+                                <td><strong style="color: var(--primary);">{{ d.blood_group }}</strong></td>
+                                <td>{{ d.last_donation }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3" style="text-align:center;">No recent donations.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </div>
+</div>
+{% endblock %}
